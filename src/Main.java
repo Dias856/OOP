@@ -1,15 +1,25 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+    public static void main(String[] args) {
+
+
+        Property p1 = new Property(1, "Abay 10", 120000, true);
+        Property p2 = new Property(2, "Tole Bi 45", 150000, false);
+
+        Agent agent = new Agent("Dias", 0.03);
+
+
+        p1.showInfo();
+        p2.showInfo();
+
+        if (p1.getPrice() > p2.getPrice()) {
+            System.out.println("Property 1 is more expensive");
+        } else {
+            System.out.println("Property 2 is more expensive");
         }
+
+        double commission = agent.calcComm(p1.getPrice());
+        System.out.println("Agent " + agent.getName()
+                + " commission: " + commission);
     }
 }
