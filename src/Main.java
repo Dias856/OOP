@@ -19,7 +19,6 @@ public class Main {
         }
 
         double commission = agent.calcComm(p1.getPrice());
-        System.out.println("Agent " + agent.getName()
-                + " commission: " + commission);
+        System.out.println("Agent " + agent.getName() + " commission: " + commission);
     }
 }
