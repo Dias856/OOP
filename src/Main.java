@@ -1,24 +1,41 @@
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
 
-
-        Property p1 = new Property(1, "Abay 10", 120000, true);
-        Property p2 = new Property(2, "Tole Bi 45", 150000, false);
+        Scanner scanner = new Scanner(System.in);
 
         Agent agent = new Agent("Dias", 0.03);
+        System.out.println(agent);
+        System.out.println("Role: " + agent.getRole());
 
+        PropertyService service = new PropertyService();
 
-        p1.showInfo();
-        p2.showInfo();
+        service.add(new Property(1, "Abay 10", 120000, true));
+        service.add(new Property(2, "Tole Bi 45", 150000, false));
+        service.add(new Property(3, "Satpaev 22", 100000, true));
 
-        if (p1.getPrice() > p2.getPrice()) {
-            System.out.println("Property 1 is more expensive");
+        System.out.println("\nAll properties:");
+        service.showAll();
+
+        System.out.println("\nAvailable properties:");
+        service.showAvailable();
+
+        System.out.println("\nSorted by price:");
+        service.sortByPrice();
+        service.showAll();
+
+        System.out.print("\nEnter property ID to search: ");
+        int id = scanner.nextInt();
+
+        Property found = service.searchById(id);
+        if (found != null) {
+            System.out.println("Found: " + found);
+            System.out.println("Commission: " +
+                    agent.calcComm(found.getPrice()));
         } else {
-            System.out.println("Property 2 is more expensive");
+            System.out.println("Property not found");
         }
-
-        double commission = agent.calcComm(p1.getPrice());
-        System.out.println("Agent " + agent.getName() + " commission: " + commission);
     }
 }
