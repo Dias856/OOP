@@ -36,7 +36,7 @@ public class Property {
 
     @Override
     public String toString() {
-        return id + " | " + address + " | $" + price + " | available=" + available;
+        return id + " | " + address + " | tenge" + price + " | available=" + available;
     }
 
     @Override

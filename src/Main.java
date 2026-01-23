@@ -5,37 +5,68 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        ActionsDB dao = new ActionsDB();
 
-        Agent agent = new Agent("Dias", 0.03);
-        System.out.println(agent);
-        System.out.println("Role: " + agent.getRole());
+        while (true) {
 
-        PropertyService service = new PropertyService();
+            System.out.println("\nMENU:");
+            System.out.println("1 - Add property");
+            System.out.println("2 - Show all properties");
+            System.out.println("3 - Delete property by ID");
+            System.out.println("4 - Update property price");
+            System.out.println("0 - Exit");
 
-        service.add(new Property(1, "Abay 10", 120000, true));
-        service.add(new Property(2, "Tole Bi 45", 150000, false));
-        service.add(new Property(3, "Satpaev 22", 100000, true));
+            System.out.print("Choose option: ");
+            int choice = scanner.nextInt();
 
-        System.out.println("\nAll properties:");
-        service.showAll();
+            if (choice == 0) {
+                System.out.println("Program finished");
+                break;
+            }
 
-        System.out.println("\nAvailable properties:");
-        service.showAvailable();
+            switch (choice) {
 
-        System.out.println("\nSorted by price:");
-        service.sortByPrice();
-        service.showAll();
+                case 1 -> {
+                    System.out.print("Enter ID: ");
+                    int id = scanner.nextInt();
 
-        System.out.print("\nEnter property ID to search: ");
-        int id = scanner.nextInt();
+                    scanner.nextLine(); // clear buffer
+                    System.out.print("Enter address: ");
+                    String address = scanner.nextLine();
 
-        Property found = service.searchById(id);
-        if (found != null) {
-            System.out.println("Found: " + found);
-            System.out.println("Commission: " +
-                    agent.calcComm(found.getPrice()));
-        } else {
-            System.out.println("Property not found");
+                    System.out.print("Enter price: ");
+                    double price = scanner.nextDouble();
+
+                    System.out.print("Available (true/false): ");
+                    boolean available = scanner.nextBoolean();
+
+                    dao.addProperty(new Property(id, address, price, available));
+                }
+
+                case 2 -> {
+                    dao.showAllProperties();
+                }
+
+                case 3 -> {
+                    System.out.print("Enter ID to delete: ");
+                    int id = scanner.nextInt();
+                    dao.deleteById(id);
+                }
+
+                case 4 -> {
+                    System.out.print("Enter ID to update: ");
+                    int id = scanner.nextInt();
+
+                    System.out.print("Enter new price: ");
+                    double price = scanner.nextDouble();
+
+                    dao.updatePrice(id, price);
+                }
+
+                default -> System.out.println("Wrong option");
+            }
         }
+
+        scanner.close();
     }
 }
